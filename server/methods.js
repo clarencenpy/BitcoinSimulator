@@ -12,10 +12,17 @@ Meteor.methods({
         Transactions.insert(tx)
     },
     transaction() {
+        //returns the first transaction in the queue
         return Transactions.find().fetch()[0]
     },
     submitBlock(block) {
         //perform checking
+
+        let txid = block.transactions[1]._id
         VerifiedBlocks.insert(block)
+        if (Transactions.remove(txid) === 1) console.log(`tx ${txid} removed from queue`)
+        return {
+            status: 'ACCEPTED'
+        }
     }
 })

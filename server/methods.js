@@ -13,5 +13,9 @@ Meteor.methods({
     },
     transaction() {
         return Transactions.find().fetch()[0]
+    },
+    submitBlock(block) {
+        //perform checking
+        VerifiedBlocks.insert(block)
     }
 })

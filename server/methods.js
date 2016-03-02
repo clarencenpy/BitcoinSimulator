@@ -16,6 +16,15 @@ Meteor.methods({
 
     //API METHODS//
 
+    addWallet(wallet) {
+        let matchingWallet = Wallets.findOne({ownerName: wallet.ownerName})
+        if (!matchingWallet) {
+            Wallets.insert(wallet)
+        }
+        return {
+            status: 'ACCEPTED'
+        }
+    },
     transaction() {
         //returns the first transaction in the queue
         return Transactions.find().fetch()[0]
@@ -38,6 +47,9 @@ Meteor.methods({
         } else {
             //not found, add it
             Blockchains.insert({blocks: blockchain, count: 1})
+        }
+        return {
+            status: 'ACCEPTED'
         }
     }
 })

@@ -11,6 +11,11 @@ Meteor.methods({
         tx.toWallet.ownerKey = CryptoJS.SHA256(tx.toWallet.ownerName).toString()
         Transactions.insert(tx)
     },
+
+
+
+    //API METHODS//
+
     transaction() {
         //returns the first transaction in the queue
         return Transactions.find().fetch()[0]
@@ -23,6 +28,16 @@ Meteor.methods({
         if (Transactions.remove(txid) === 1) console.log(`tx ${txid} removed from queue`)
         return {
             status: 'ACCEPTED'
+        }
+    },
+    submitBlockchain(blockchain) {
+        //find a matching blockchain, and increment count
+        let matchingBlock = Blockchains.findOne({blocks: blockchain})
+        if (matchingBlock) {
+            Blockchains.update(matchingBlock._id, {$inc: {count: 1}})
+        } else {
+            //not found, add it
+            Blockchains.insert({blocks: blockchain, count: 1})
         }
     }
 })

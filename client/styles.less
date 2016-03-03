@@ -1,0 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
+
+//Variables
+@header-height: 50px;
+@transactions-width: 300px;
+@wallets-width: 300px;
+
+body {
+  font-family: 'Share Tech Mono';
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: @header-height;
+  background: #101121;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  line-height: @header-height;
+  color: white;
+}
+.transactions-container {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: @transactions-width;
+  height: ~"calc(100vh - @{header-height})";
+  overflow-y: scroll;
+  background: #151d31;
+}
+
+.blockchains-container {
+  width: ~"calc(100vw - @{transactions-width} - @{wallets-width})";
+  height: ~"calc(100vh - @{header-height})";
+}
+
+.wallets-container {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  width: @wallets-width;
+  height: ~"calc(100vh - @{header-height})";
+  overflow-y: scroll;
+  background: #151d31;
+}

@@ -39,6 +39,9 @@ Meteor.methods({
             status: 'ACCEPTED'
         }
     },
+    blocks() {
+        return VerifiedBlocks.find().fetch()
+    },
     submitBlockchain(blockchain) {
         //find a matching blockchain, and increment count
         let matchingBlock = Blockchains.findOne({blocks: blockchain})

@@ -1,4 +1,11 @@
 <template name="transactions">
+
+    <div class="control drop-shadow">
+        <div class="label">TKC Transaction Pool</div>
+        <button class="start-fake-btn ui inverted {{#if isFaking}}red{{else}}green{{/if}} tiny button">{{#if isFaking}}Stop Accepting{{else}}Accept Transactions{{/if}}</button>
+        <button class="ui inverted orange tiny button">Make Transaction</button>
+    </div>
+
     {{#each transactions}}
         <div class="ui inverted segment transaction-contents">
             <div class="ui top right attached label grey inverted">Unconfirmed</div>
@@ -16,4 +23,5 @@
             </div>
         </div>
     {{/each}}
+
 </template>

@@ -3,7 +3,8 @@ Meteor.methods({
         let tx = {
             fromWallet: {},
             toWallet: {},
-            amount: Random.choice([5, 10, 15, 20, 25, 30, 35, 40, 45, 50])
+            amount: Random.choice([5, 10, 15, 20, 25, 30, 35, 40, 45, 50]),
+            date: new Date()
         }
         tx.fromWallet.ownerName = faker.name.firstName()
         tx.fromWallet.ownerKey = CryptoJS.SHA256(tx.fromWallet.ownerName).toString()

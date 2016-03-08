@@ -4,7 +4,7 @@
 //Variables
 @header-height: 50px;
 @transactions-width: 300px;
-@wallets-width: 300px;
+@wallets-width: 250px;
 
 body {
   font-family: 'Share Tech Mono';
@@ -34,6 +34,10 @@ body {
   padding: 10px;
 }
 
+.transaction-contents {
+  margin: 5px !important;
+}
+
 .blockchains-container {
   width: ~"calc(100vw - @{transactions-width} - @{wallets-width})";
   height: ~"calc(100vh - @{header-height})";
@@ -46,7 +50,21 @@ body {
   width: @wallets-width;
   height: ~"calc(100vh - @{header-height})";
   overflow-y: scroll;
-  background: #151d31;
+  background: #35356b;
+  padding: 10px;
+}
+
+.wallet-contents {
+  padding: 30px 15px 0px 15px !important;
+  margin: 5px !important;
+  span.amount {
+    font-size: 18px;
+    position: relative;
+    top: 3px;
+  }
+  .ui.inverted.yellow.button {
+    padding: 5px;
+  }
 }
 
 .tuckcoin {

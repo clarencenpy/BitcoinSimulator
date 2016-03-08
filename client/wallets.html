@@ -1,0 +1,21 @@
+<template name="wallets">
+    {{#each wallets}}
+        <div class="ui inverted segment wallet-contents">
+            <div class="ui top attached label blue inverted">
+                <span class="header">{{ownerName}}</span>
+                <span>({{obscure ownerKey}})</span>
+            </div>
+            <div class="ui inverted relaxed divided list transaction">
+                <div class="item">
+                    <div class="right floated content">
+                        <div class="ui inverted yellow button tiny">Mining</div>
+                    </div>
+                    <div class="content">
+                        <span class="amount">500</span> {{>tuckcoin}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+
+</template>

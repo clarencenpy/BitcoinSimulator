@@ -5,6 +5,7 @@
 @header-height: 50px;
 @transactions-width: 300px;
 @wallets-width: 250px;
+@footer-height: 120px;
 
 body {
   font-family: 'Share Tech Mono';
@@ -40,7 +41,7 @@ body {
 
 .blockchains-container {
   width: ~"calc(100vw - @{transactions-width} - @{wallets-width})";
-  height: ~"calc(100vh - @{header-height})";
+  height: ~"calc(100vh - @{header-height} - @{footer-height})";
 }
 
 .wallets-container {
@@ -67,6 +68,20 @@ body {
   }
 }
 
+.footer-container {
+  position: fixed;
+  bottom: 0px;
+  left: @transactions-width;
+  width: ~"calc(100vw - @{transactions-width} - @{wallets-width})";
+  height: @footer-height;
+  padding: 10px;
+  background: #2f2f2f;
+}
+
+
+
+//Extras//
+
 .tuckcoin {
   font-size: 12px;
   .fa-circle {
@@ -77,6 +92,19 @@ body {
     //color: black;
   }
 }
+
+.tuckcoin.hero {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  top: -50px;
+  font-size: 50px;
+  text-align: center;
+  z-index: 1;
+}
+
+//Utilities//
 
 
 //Overrides//

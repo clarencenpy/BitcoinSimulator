@@ -1,8 +1,13 @@
 <body>
     {{>ticker}}
     <div class="app-header">
-        Tuckcoin Exchange
+        <span>Tuckcoin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Exchange</span>
+        <span class="fa-stack tuckcoin hero">
+            <i class="fa fa-circle fa-stack-2x drop-shadow"></i>
+            <i class="fa fa-tumblr fa-stack-1x"></i>
+        </span>
     </div>
+
     <div class="transactions-container">
 
         {{>transactions}}
@@ -13,5 +18,8 @@
     </div>
     <div class="wallets-container">
         {{>wallets}}
+    </div>
+    <div class="footer-container">
+        {{>footer}}
     </div>
 </body>

@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:700);
 
 //Variables
 @header-height: 50px;
@@ -9,7 +10,7 @@ body {
   font-family: 'Share Tech Mono';
 }
 
-.header {
+.app-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -29,7 +30,8 @@ body {
   width: @transactions-width;
   height: ~"calc(100vh - @{header-height})";
   overflow-y: scroll;
-  background: #151d31;
+  background: #35356b;
+  padding: 10px;
 }
 
 .blockchains-container {
@@ -45,4 +47,24 @@ body {
   height: ~"calc(100vh - @{header-height})";
   overflow-y: scroll;
   background: #151d31;
+}
+
+.tuckcoin {
+  font-size: 12px;
+  .fa-circle {
+    color: #610ab7;
+    //color: #e8e403;
+  }
+  .fa-tumblr {
+    //color: black;
+  }
+}
+
+
+//Overrides//
+.header {
+  font-family: 'Roboto Mono' !important;
+}
+.ui.top.attached.label:first-child + :not(.attached) {
+  margin-top: 0 !important;
 }

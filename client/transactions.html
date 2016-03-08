@@ -1,0 +1,19 @@
+<template name="transactions">
+    {{#each transactions}}
+        <div class="ui inverted segment">
+            <div class="ui top right attached label grey inverted">Unconfirmed</div>
+            <div class="ui inverted relaxed divided list transaction">
+                <div class="item">
+                    <div class="content">
+                        <div class="header">Tx #{{truncate _id}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        {{fromWallet.ownerName}} -- {{amount}}{{>tuckcoin}} --> {{toWallet.ownerName}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</template>

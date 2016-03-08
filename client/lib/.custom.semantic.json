@@ -69,7 +69,7 @@
     "material": false,
     "pulsar": false,
     "raised": false,
-    "resetcss": false,
+    "resetcss": true,
     "round": true,
     "rtl": false,
     "striped": false,

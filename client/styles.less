@@ -73,6 +73,10 @@ body {
   top: @header-height;
   background: black;
 }
+#network-container {
+  width: ~"calc(100vw - @{transactions-width} - @{wallets-width})";
+  height: ~"calc(100vh - @{header-height} - @{footer-height})";
+}
 
 .wallets-container {
   position: fixed;

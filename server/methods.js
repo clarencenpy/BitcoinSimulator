@@ -20,11 +20,18 @@ Meteor.methods({
     addWallet(wallet) {
         let matchingWallet = Wallets.findOne({ownerName: wallet.ownerName})
         if (!matchingWallet) {
+            wallet.online = true
             Wallets.insert(wallet)
         }
         return {
             status: 'ACCEPTED'
         }
+    },
+    goOnline(ownerKey) {
+        Wallets.update({ownerKey: ownerKey}, {$set: {online: true}})
+    },
+    goOffline(ownerKey) {
+        Wallets.update({ownerKey: ownerKey}, {$set: {online: false}})
     },
     transaction() {
         //returns the first transaction in the queue

@@ -8,7 +8,7 @@ Template.wallets.onRendered(function() {
 
 Template.wallets.helpers({
     wallets() {
-        return Wallets.find()
+        return Wallets.find({online: true})
     },
     obscure(key) {
         return key.substr(0, 6) + '...'

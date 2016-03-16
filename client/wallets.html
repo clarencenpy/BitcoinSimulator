@@ -7,9 +7,11 @@
             </div>
             <div class="ui inverted relaxed divided list transaction">
                 <div class="item">
+                    {{#if mining}}
                     <div class="right floated content">
                         <div class="ui inverted yellow button tiny">Mining</div>
                     </div>
+                    {{/if}}
                     <div class="content">
                         <span class="amount">500</span> {{>tuckcoin}}
                     </div>

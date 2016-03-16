@@ -27,11 +27,17 @@ Meteor.methods({
             status: 'ACCEPTED'
         }
     },
-    goOnline(ownerKey) {
-        Wallets.update({ownerKey: ownerKey}, {$set: {online: true}})
+    goOnline(wallet) {
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: true}})
     },
-    goOffline(ownerKey) {
-        Wallets.update({ownerKey: ownerKey}, {$set: {online: false}})
+    goOffline(wallet) {
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: false, mining: false}})
+    },
+    startMining() {
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: true}})
+    },
+    startMining() {
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: false}})
     },
     transaction() {
         //returns the first transaction in the queue

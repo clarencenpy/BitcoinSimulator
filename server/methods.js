@@ -47,6 +47,7 @@ Meteor.methods({
         //perform checking
 
         let txid = block.transactions[1]._id
+        block.date = new Date()
         VerifiedBlocks.insert(block)
         Transactions.update(txid, {$set: {confirmed: true}})
         return {

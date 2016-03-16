@@ -33,15 +33,15 @@ Meteor.methods({
     goOffline(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: false, mining: false}})
     },
-    startMining() {
+    startMining(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: true}})
     },
-    startMining() {
+    startMining(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: false}})
     },
     transaction() {
         //returns the first transaction in the queue
-        return Transactions.find({}).fetch()[0]
+        return Transactions.find({confirmed: false}).fetch()[0]
     },
     submitBlock(block) {
         //perform checking

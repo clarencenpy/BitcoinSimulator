@@ -12,7 +12,8 @@ Template.network.onCreated(function() {
     for (let i=1; i<=6; i++) {
         data.nodes.push({
             id: i,
-            label: 'Tx #1235' + String(i) +'\n  Bob --25--> Alice  '
+            //title: 'Tx #1212',
+            label: 'Tx #1235' + String(i) +'\nWaituck -25-> Clarence\nTKC -25-> Clarence'
         })
     }
     data.edges.push({from: 1, to: 2})
@@ -35,7 +36,7 @@ Template.network.onRendered(function() {
             layout: {
                 hierarchical: {
                     direction: 'LR',
-                    levelSeparation: 200
+                    levelSeparation: 300
                 }
             },
             edges: {
@@ -48,20 +49,21 @@ Template.network.onRendered(function() {
 
             },
             nodes: {
-                shape: 'box',
-                font: {face: 'Share Tech Mono'}
+                shape: 'ellipse',
+                font: {
+                    face: 'Share Tech Mono'
+                },
             },
             interaction: {
                 hover: true,
                 tooltipDelay: 100
             },
             physics: {
-                maxVelocity: 10
+                //maxVelocity: 10
             }
         }
 
         template.network = new vis.Network(container, data, options)
-        console.log(template.network)
     })
 
 })

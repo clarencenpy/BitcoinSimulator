@@ -41,20 +41,20 @@ Meteor.methods({
     },
     transaction() {
         //returns the first transaction in the queue
-        return Transactions.find().fetch()[0]
+        return Transactions.find({}).fetch()[0]
     },
     submitBlock(block) {
         //perform checking
 
         let txid = block.transactions[1]._id
         VerifiedBlocks.insert(block)
-        if (Transactions.remove(txid) === 1) console.log(`tx ${txid} removed from queue`)
+        Transactions.update(txid, {$set: {confirmed: true}})
         return {
             status: 'ACCEPTED'
         }
     },
     blocks() {
-        return VerifiedBlocks.find().fetch()
+        return VerifiedBlocks.find({}, {}, {sort: {date: 1}}).fetch()
     },
     submitBlockchain(blockchain) {
         //find a matching blockchain, and increment count

@@ -8,7 +8,11 @@
 
     {{#each transactions}}
         <div class="ui inverted segment transaction-contents animated fadeInRight">
-            <div class="ui top right attached label grey inverted">Unconfirmed</div>
+            {{#if confirmed}}
+                <div class="ui top right attached label green inverted">Confirmed</div>
+            {{else}}
+                <div class="ui top right attached label grey inverted">Unconfirmed</div>
+            {{/if}}
             <div class="ui inverted relaxed divided list transaction">
                 <div class="item">
                     <div class="content">

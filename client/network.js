@@ -1,69 +1,65 @@
 Template.network.onCreated(function() {
     const template = this
-
-    let data = {
-        nodes: [],
-        edges: []
-    }
-
-    template.network = null
-
-    //faking some data for testing
-    for (let i=1; i<=6; i++) {
-        data.nodes.push({
-            id: i,
-            //title: 'Tx #1212',
-            label: 'Tx #1235' + String(i) +'\nWaituck -25-> Clarence\nTKC -25-> Clarence'
-        })
-    }
-    data.edges.push({from: 1, to: 2})
-    data.edges.push({from: 1, to: 3})
-    data.edges.push({from: 1, to: 4})
-    data.edges.push({from: 2, to: 5})
-    data.edges.push({from: 5, to: 6})
-
-    Session.set('networkData', data)
-
-
 })
 
 Template.network.onRendered(function() {
     const template = this
-    Tracker.autorun(function () {
-        let data = Session.get('networkData')
-        let container = template.$('#network-container')[0]
-        let options = {
-            layout: {
-                hierarchical: {
-                    direction: 'LR',
-                    levelSeparation: 300
-                }
-            },
-            edges: {
-                arrowStrikethrough: false,
-                smooth: {
-                    type: 'continuous'
-                },
-                arrows: {from: true},
-                width: 2
 
-            },
-            nodes: {
-                shape: 'ellipse',
-                font: {
-                    face: 'Share Tech Mono'
-                },
-            },
-            interaction: {
-                hover: true,
-                tooltipDelay: 100
-            },
-            physics: {
-                //maxVelocity: 10
+    //initialise network
+    let data = {nodes: [], edges: []}
+    let container = template.$('#network-container')[0]
+    let options = {
+        layout: {
+            hierarchical: {
+                direction: 'LR',
+                levelSeparation: 250,
+                sortMethod: 'directed'
             }
-        }
+        },
+        edges: {
+            arrowStrikethrough: false,
+            smooth: {
+                type: 'continuous'
+            },
+            arrows: {from: true},
+            width: 2
 
-        template.network = new vis.Network(container, data, options)
+        },
+        nodes: {
+            shape: 'ellipse',
+            font: {
+                face: 'Share Tech Mono'
+            }
+        },
+        interaction: {
+            hover: true,
+            tooltipDelay: 100
+        },
+        physics: {
+            //maxVelocity: 10
+        }
+    }
+
+    template.network = new vis.Network(container, data, options)
+    Tracker.autorun(function () {
+        //run whenever VerifiedBlocks is updated
+        let blocks = VerifiedBlocks.find({}, {}, {sort: {date: -1}}).fetch()
+        console.log(blocks)
+        let newData = buildBlockchain(blocks)
+        let currentNodes = template.network.body.data.nodes.get()
+        let currentEdges = template.network.body.data.edges.get()
+
+        //diffing
+        newData.nodes = _.filter(newData.nodes, function(node) {
+            return !_.findWhere(currentNodes, node)
+        })
+        newData.edges = _.filter(newData.edges, function(edge) {
+            return !_.findWhere(currentEdges, edge)
+        })
+
+        //patch the differences
+        template.network.body.data.nodes.add(newData.nodes)
+        template.network.body.data.edges.add(newData.edges)
     })
 
 })
@@ -80,8 +76,31 @@ Template.network.onDestroyed(function() {
 
 })
 
-let NetworkUtil = {
-    update() {
 
-    }
+
+function transactionToString(transaction) {
+    return (transaction.fromWallet ? transaction.fromWallet.ownerName : 'ø') + ' -' + transaction.amount + '-> ' + transaction.toWallet.ownerName
 }
+function buildBlockchain(blocks) {
+    //transform blockchain into data structure for vis
+    let data = {
+        nodes: [],
+        edges: []
+    }
+
+    _.each(blocks, function (block) {
+
+        data.nodes.push({
+            id: block.outputHash,
+            label: transactionToString(block.transactions[0]) + '\n'
+                + transactionToString(block.transactions[1]) + '\n'
+                + block.outputHash
+        })
+        data.edges.push({
+            from: block.previousHash,
+            to: block.outputHash
+        })
+    })
+    return data
+}
+

@@ -41,7 +41,7 @@ Meteor.methods({
     },
     transaction() {
         //returns the first transaction in the queue
-        return Transactions.find({confirmed: false}).fetch()[0]
+        return Transactions.find({confirmed: {$in: [false, undefined]}}).fetch()[0]
     },
     submitBlock(block) {
         //perform checking

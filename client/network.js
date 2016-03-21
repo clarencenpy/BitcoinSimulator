@@ -44,7 +44,6 @@ Template.network.onRendered(function() {
     Tracker.autorun(function () {
         //run whenever VerifiedBlocks is updated
         let blocks = VerifiedBlocks.find({}, {}, {sort: {date: -1}}).fetch()
-        console.log(blocks)
         let newData = buildBlockchain(blocks)
         let currentNodes = template.network.body.data.nodes.get()
         let currentEdges = template.network.body.data.edges.get()
@@ -94,7 +93,7 @@ function buildBlockchain(blocks) {
             id: block.outputHash,
             label: transactionToString(block.transactions[0]) + '\n'
                 + transactionToString(block.transactions[1]) + '\n'
-                + block.outputHash
+                + block.outputHash.substr(0, 10)
         })
         data.edges.push({
             from: block.previousHash,

@@ -21,6 +21,7 @@ Meteor.methods({
         let matchingWallet = Wallets.findOne({ownerName: wallet.ownerName})
         if (!matchingWallet) {
             wallet.online = true
+            wallet.amount = 0
             Wallets.insert(wallet)
         }
         return {
@@ -29,7 +30,6 @@ Meteor.methods({
     },
     goOnline(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: true}})
-        console.log(wallet.ownerKey)
     },
     goOffline(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: false, mining: false}})
@@ -37,7 +37,7 @@ Meteor.methods({
     startMining(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: true}})
     },
-    startMining(wallet) {
+    stopMining(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: false}})
     },
     transaction() {
@@ -48,6 +48,7 @@ Meteor.methods({
         //perform checking
 
         let txid = block.transactions[1]._id
+        let rewardee = block.transactions[0].toWallet.ownerKey
         let tx = Transactions.findOne(txid)
         if (tx && tx.confirmed) {
             //transaction has already been added
@@ -58,6 +59,7 @@ Meteor.methods({
             block.date = new Date()
             VerifiedBlocks.insert(block)
             Transactions.update(txid, {$set: {confirmed: true}})
+            Wallets.update({ownerKey: rewardee}, {$inc: {amount: block.transactions[0].amount}})
             return {
                 status: 'ACCEPTED'
             }

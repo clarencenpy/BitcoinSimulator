@@ -13,7 +13,7 @@
                     </div>
                     {{/if}}
                     <div class="content">
-                        <span class="amount">500</span> {{>tuckcoin}}
+                        <span class="amount">{{#if amount}}{{amount}}{{else}}0{{/if}}</span> {{>tuckcoin}}
                     </div>
                 </div>
             </div>

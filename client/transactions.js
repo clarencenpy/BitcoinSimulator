@@ -4,7 +4,29 @@ Template.transactions.onCreated(function() {
 })
 
 Template.transactions.onRendered(function() {
+    const template = this
+    template.$('.ui.basic.modal').on('click', '.submit-btn', function() {
+        let fromWalletName = $('#fromWalletName')[0].value
+        let toWalletName = $('#toWalletName')[0].value
+        let amount = $('#amount')[0].value
+        let tx = {
+            fromWallet: {
+                ownerName: fromWalletName,
+                ownerKey: CryptoJS.SHA256(fromWalletName).toString()
+            },
+            toWallet: {
+                ownerName: toWalletName,
+                ownerKey: CryptoJS.SHA256(toWalletName).toString()
+            },
+            amount: amount,
+            date: new Date(),
+            confirmed: false
+        }
+        console.log(tx)
+        Transactions.insert(tx)
 
+        $('.ui.basic.modal').modal('hide')
+    })
 })
 
 Template.transactions.helpers({
@@ -32,6 +54,9 @@ Template.transactions.events({
             Meteor.clearInterval(template.interval.get())
             template.interval.set(null)
         }
+    },
+    'click .make-transaction-btn'() {
+        $('.ui.basic.modal').modal('show')
     }
 })
 

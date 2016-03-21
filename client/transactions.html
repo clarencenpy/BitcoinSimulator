@@ -3,11 +3,11 @@
     <div class="control drop-shadow">
         <div class="label">TKC Transaction Pool</div>
         <button class="start-fake-btn ui inverted {{#if isFaking}}red{{else}}green{{/if}} tiny button">{{#if isFaking}}Stop Accepting{{else}}Accept Transactions{{/if}}</button>
-        <button class="ui inverted orange tiny button">Make Transaction</button>
+        <button class="make-transaction-btn ui inverted orange tiny button">Make Transaction</button>
     </div>
 
     {{#each transactions}}
-        <div class="ui inverted segment transaction-contents animated fadeInRight">
+        <div class="ui inverted segment transaction-contents animated fadeInLeft">
             {{#if confirmed}}
                 <div class="ui top right attached label green inverted">Confirmed</div>
             {{else}}
@@ -27,5 +27,35 @@
             </div>
         </div>
     {{/each}}
+
+
+    <!--MODAL-->
+
+    <div class="ui basic modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Create a Bitcoin transaction
+        </div>
+        <div class="ui inverted segment">
+            <div class="ui inverted form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>From Wallet</label>
+                        <input id="fromWalletName" placeholder="Enter Name" type="text">
+                    </div>
+                    <div class="field">
+                        <label>To Wallet</label>
+                        <input id="toWalletName" placeholder="Enter Name" type="text">
+                    </div>
+                    <div class="field">
+                        <label>Amount</label>
+                        <input id="amount" type="number">
+                    </div>
+                </div>
+
+                <div class="submit-btn ui submit button green inverted">Send Bitcoins</div>
+            </div>
+        </div>
+    </div>
 
 </template>

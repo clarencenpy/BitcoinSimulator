@@ -29,6 +29,7 @@ Meteor.methods({
     },
     goOnline(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: true}})
+        console.log(wallet.ownerKey)
     },
     goOffline(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: false, mining: false}})
@@ -47,12 +48,23 @@ Meteor.methods({
         //perform checking
 
         let txid = block.transactions[1]._id
-        block.date = new Date()
-        VerifiedBlocks.insert(block)
-        Transactions.update(txid, {$set: {confirmed: true}})
-        return {
-            status: 'ACCEPTED'
+        let tx = Transactions.findOne(txid)
+        if (tx && tx.confirmed) {
+            //transaction has already been added
+            return {
+                status: 'ALREADY_ADDED'
+            }
+        } else {
+            block.date = new Date()
+            VerifiedBlocks.insert(block)
+            Transactions.update(txid, {$set: {confirmed: true}})
+            return {
+                status: 'ACCEPTED'
+            }
         }
+        
+
+        
     },
     blocks() {
         return VerifiedBlocks.find({}, {}, {sort: {date: 1}}).fetch()

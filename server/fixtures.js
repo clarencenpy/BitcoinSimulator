@@ -30,3 +30,7 @@ if (VerifiedBlocks.find().count() === 0) {
     })
 
 }
+
+if (Difficulty.find().count() === 0) {
+    Difficulty.insert({difficulty: 20})
+}

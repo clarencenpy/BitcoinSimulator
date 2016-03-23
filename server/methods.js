@@ -4,7 +4,8 @@ Meteor.methods({
             fromWallet: {},
             toWallet: {},
             amount: Random.choice([5, 10, 15, 20, 25, 30, 35, 40, 45, 50]),
-            date: new Date()
+            date: new Date(),
+            difficulty: Difficulty.find().fetch()[0].difficulty
         }
         tx.fromWallet.ownerName = faker.name.firstName()
         tx.fromWallet.ownerKey = CryptoJS.SHA256(tx.fromWallet.ownerName).toString()
@@ -16,6 +17,9 @@ Meteor.methods({
         Transactions.remove({})
         Wallets.remove({})
         VerifiedBlocks.remove({})
+        Difficulty.remove({})
+
+        Difficulty.insert({difficulty: 20})
 
         let wallets = ['Clarence', 'Waituck', 'Jesper', 'Shraddha', 'Moriarty', 'ProfessorR']
         _.each(wallets, function (name) {

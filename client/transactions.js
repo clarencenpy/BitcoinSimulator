@@ -20,7 +20,8 @@ Template.transactions.onRendered(function() {
             },
             amount: amount,
             date: new Date(),
-            confirmed: false
+            confirmed: false,
+            difficulty: Difficulty.find().fetch()[0].difficulty
         }
         Transactions.insert(tx)
 

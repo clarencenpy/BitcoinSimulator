@@ -25,6 +25,12 @@ body {
   line-height: @header-height;
   color: white;
 }
+.difficulty-control {
+  position: fixed;
+  top: ~"calc(@{header-height} + 20px)";
+  left: ~"calc(@{transactions-width} + 40px)";
+  z-index: 5;
+}
 .transactions-container {
   position: fixed;
   top: 50px;

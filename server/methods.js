@@ -12,6 +12,43 @@ Meteor.methods({
         tx.toWallet.ownerKey = CryptoJS.SHA256(tx.toWallet.ownerName).toString()
         Transactions.insert(tx)
     },
+    reset() {
+        Transactions.remove({})
+        Wallets.remove({})
+        VerifiedBlocks.remove({})
+
+        let wallets = ['Clarence', 'Waituck', 'Jesper', 'Shraddha', 'Moriarty', 'ProfessorR']
+        _.each(wallets, function (name) {
+            Wallets.insert({
+                ownerName: name,
+                ownerKey: CryptoJS.SHA256(name).toString(),
+                online: true,
+                amount: name === 'Moriarty' ? 1000 : 0
+            })
+        })
+
+        VerifiedBlocks.insert({
+            transactions: [
+                {
+                    toWallet: {
+                        ownerName: 'Moriarty',
+                        ownerKey: CryptoJS.SHA256('Moriarty').toString()
+                    },
+                    amount: 500
+                },
+                {
+                    toWallet: {
+                        ownerName: 'Moriarty',
+                        ownerKey: CryptoJS.SHA256('Moriarty').toString()
+                    },
+                    amount: 500
+                }
+            ],
+            nonce: 0,
+            date: new Date(),
+            outputHash: '00000000000000000'
+        })
+    },
 
 
 

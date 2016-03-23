@@ -117,7 +117,15 @@ Meteor.methods({
         return VerifiedBlocks.find({}, {sort: {date: 1}}).fetch()
     },
     submitParsedAmounts(wallets) {
+        let update = {}
+        let curWallets = Wallets.find().fetch()
+        _.each(curWallets, function (wallet) {
+            update[wallet.ownerName] = 0
+        })
         _.each(wallets, function (value, key) {
+            update[key] = value
+        })
+        _.each(update, function (value, key) {
             Wallets.update({ownerName: key}, {$set: {amount: value}})
         })
     }

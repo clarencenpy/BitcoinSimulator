@@ -43,7 +43,7 @@ Template.network.onRendered(function() {
     template.network = new vis.Network(container, data, options)
     Tracker.autorun(function () {
         //run whenever VerifiedBlocks is updated
-        let blocks = VerifiedBlocks.find({}, {}, {sort: {date: -1}}).fetch()
+        let blocks = VerifiedBlocks.find({}, {sort: {date: -1}}).fetch()
         let newData = buildBlockchain(blocks)
         let currentNodes = template.network.body.data.nodes.get()
         let currentEdges = template.network.body.data.edges.get()

@@ -48,7 +48,6 @@ Meteor.methods({
         //perform checking
 
         let txid = block.transactions[1]._id
-        let rewardee = block.transactions[0].toWallet.ownerKey
         let tx = Transactions.findOne(txid)
         if (tx && tx.confirmed) {
             //transaction has already been added
@@ -59,7 +58,6 @@ Meteor.methods({
             block.date = new Date()
             VerifiedBlocks.insert(block)
             Transactions.update(txid, {$set: {confirmed: true}})
-            Wallets.update({ownerKey: rewardee}, {$inc: {amount: block.transactions[0].amount}})
             return {
                 status: 'ACCEPTED'
             }
@@ -71,17 +69,9 @@ Meteor.methods({
     blocks() {
         return VerifiedBlocks.find({}, {}, {sort: {date: 1}}).fetch()
     },
-    submitBlockchain(blockchain) {
-        //find a matching blockchain, and increment count
-        let matchingBlock = Blockchains.findOne({blocks: blockchain})
-        if (matchingBlock) {
-            Blockchains.update(matchingBlock._id, {$inc: {count: 1}})
-        } else {
-            //not found, add it
-            Blockchains.insert({blocks: blockchain, count: 1})
-        }
-        return {
-            status: 'ACCEPTED'
-        }
+    submitParsedAmounts(wallets) {
+        _.each(wallets, function (value, key) {
+            Wallets.update({ownerName: key}, {$set: {amount: value}})
+        })
     }
 })

@@ -22,7 +22,6 @@ Template.transactions.onRendered(function() {
             date: new Date(),
             confirmed: false
         }
-        console.log(tx)
         Transactions.insert(tx)
 
         $('.ui.basic.modal').modal('hide')

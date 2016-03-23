@@ -29,10 +29,16 @@ Meteor.methods({
         }
     },
     goOnline(wallet) {
-        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: true}})
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: true, evil: false}})
     },
     goOffline(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {online: false, mining: false}})
+    },
+    goEvil(wallet) {
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {evil: true}})
+    },
+    stopEvil(wallet) {
+        Wallets.update({ownerKey: wallet.ownerKey}, {$set: {evil: false}})
     },
     startMining(wallet) {
         Wallets.update({ownerKey: wallet.ownerKey}, {$set: {mining: true}})

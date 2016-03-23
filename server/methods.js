@@ -114,7 +114,7 @@ Meteor.methods({
         
     },
     blocks() {
-        return VerifiedBlocks.find({}, {}, {sort: {date: 1}}).fetch()
+        return VerifiedBlocks.find({}, {sort: {date: 1}}).fetch()
     },
     submitParsedAmounts(wallets) {
         _.each(wallets, function (value, key) {

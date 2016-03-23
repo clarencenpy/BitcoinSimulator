@@ -12,6 +12,7 @@ Meteor.methods({
         tx.toWallet.ownerName = faker.name.firstName()
         tx.toWallet.ownerKey = CryptoJS.SHA256(tx.toWallet.ownerName).toString()
         Transactions.insert(tx)
+        console.log(tx)
     },
     reset() {
         Transactions.remove({})

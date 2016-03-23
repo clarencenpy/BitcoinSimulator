@@ -20,7 +20,7 @@ Template.footer.helpers({
         return Transactions.find({confirmed: true}).count()
     },
     numPending() {
-        return Transactions.find({confirmed: {$nin: [undefined, false]}}).count()
+        return Transactions.find({confirmed: {$in: [undefined, false]}}).count()
     }
 })
 

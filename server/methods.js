@@ -21,6 +21,19 @@ Meteor.methods({
 
         Difficulty.insert({difficulty: 20})
 
+        Transactions.insert({
+            fromWallet: {
+                ownerName: 'Alice',
+                ownerKey: CryptoJS.SHA256('Alice').toString()
+            },
+            toWallet: {
+                ownerName: 'Bob',
+                ownerKey: CryptoJS.SHA256('Bob').toString()
+            },
+            amount: 15,
+            confirmed: false
+        })
+
         let wallets = ['Clarence', 'Waituck', 'Jesper', 'Shraddha', 'Moriarty', 'ProfessorR']
         _.each(wallets, function (name) {
             Wallets.insert({

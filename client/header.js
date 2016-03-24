@@ -13,9 +13,6 @@ Template.header.helpers({
 })
 
 Template.header.events({
-    'click .tuckcoin'() {
-        Meteor.call('reset')        
-    },
     'click .add-difficulty-btn'() {
         Difficulty.update(Difficulty.find().fetch()[0]._id, {$inc: {difficulty: 1}})
     },

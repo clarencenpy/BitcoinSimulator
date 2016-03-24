@@ -91,7 +91,7 @@ function buildBlockchain(blocks) {
 
         let color
         if (block.transactions[1].fromWallet !== undefined) {
-            color = block.transactions[1].fromWallet.ownerName.toUpperCase() === 'MORIARTY' && block.transactions[1].toWallet.ownerName.toUpperCase() === 'PROFESSORR' ? 'red' : undefined
+            color = block.transactions[1].fromWallet.ownerName.toUpperCase() === 'MORIARTY' && block.transactions[1].toWallet.ownerName.toUpperCase() === 'PROFESSORR' ? '#d54a58' : undefined
         }
         data.nodes.push({
             id: block.outputHash,

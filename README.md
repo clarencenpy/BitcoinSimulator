@@ -10,3 +10,4 @@ Bitcoin Simulator for in-class demo
 ![Screenshot](screenshots/Screenshot3.png?raw=true "Screenshot")
 ![Screenshot](screenshots/Screenshot4.png?raw=true "Screenshot")
 ![Screenshot](screenshots/Screenshot5.png?raw=true "Screenshot")
+![Screenshot](Demo.jpg?raw=true "In-class demo")
